@@ -1,0 +1,62 @@
+general {
+        markup = "pango"
+        colors = true
+        interval = 5
+        color_good = "#94e2d5"
+        color_bad = "#eba0ac"
+        color_degraded = "#eba0ac"
+}
+
+order += "tztime local"
+order += "volume master"
+order += "battery all"
+
+wireless _first_ {
+        format_up = "W: (%quality at %essid) %ip"
+        format_down = "W: down"
+}
+
+ethernet _first_ {
+        format_up = "E: %ip (%speed)"
+        format_down = "E: down"
+}
+
+battery all {
+        format = "%status %percentage %remaining"
+        format_down = "No battery"
+        status_chr = "⚡"
+        status_bat = "🔋"
+        status_unk = "?"
+        status_full = "☻"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+        integer_battery_capacity = true
+        last_full_capacity = true
+}
+
+disk "/" {
+        format = "%avail"
+}
+
+load {
+        format = "%1min"
+}
+
+memory {
+        format = "%used | %available"
+        threshold_degraded = "1G"
+        format_degraded = "MEMORY < %available"
+}
+
+tztime local {
+        format = "%A, %B %e %l:%M%p                                        "
+}
+
+volume master {
+        format = "♪ %volume"
+        format_muted = "♪ muted (%volume)"
+        device = "default"
+        mixer = "Master"
+        mixer_idx = 0
+}
+
